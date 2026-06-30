@@ -11,5 +11,5 @@ Future dashboard areas:
 - Evaluation dashboard.
 - Demo agent interface.
 
-The web app will call the Python API in `apps/api`. Backend behavior belongs in the API service, not in the frontend.
+The web app will call the Node.js API in `apps/api`. Backend behavior belongs in the API service, not in the frontend.
 

@@ -43,6 +43,12 @@ This project is designed to communicate:
 - Cost and latency awareness.
 - Product thinking around reliability dashboards.
 
+## Current Implementation
+
+The current implementation is a Node.js and TypeScript Milestone 0 foundation. It defines the monorepo shape, documents the product intent, and verifies that the future API package can be tested and typechecked.
+
+It does not yet define domain models, execute scenarios, call models, retrieve documents, run tools, expose an API, or render a dashboard.
+
 ## Documentation Policy
 
 Business and technical documentation should stay updated as the project changes. The goal is that someone can return after a break, or join the project later, and understand both what the product does and why it exists.

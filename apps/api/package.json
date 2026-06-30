@@ -1,0 +1,19 @@
+{
+  "name": "@llm-reliability-lab/api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Node.js API foundation for LLM Reliability Lab.",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
+}
+

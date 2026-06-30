@@ -1,14 +1,14 @@
 # Technical Architecture
 
-LLM Reliability Lab will be a fullstack monorepo with a Python API and a React dashboard.
+LLM Reliability Lab will be a fullstack TypeScript monorepo with a Node.js API and a React dashboard.
 
-Milestone 0 only creates the foundation. It does not implement product behavior.
+Milestone 0 creates only the foundation. It does not implement product behavior.
 
 ## Monorepo Layout
 
 ```text
 apps/
-  api/  # Future Python FastAPI service
+  api/  # Future Node.js API service, likely NestJS later
   web/  # Future Vite + React + TypeScript dashboard
 docs/   # Business and technical documentation
 ```
@@ -29,13 +29,13 @@ The future API will use Clean Architecture boundaries:
 - Domain: core concepts and rules.
 - Application: use cases and port interfaces.
 - Infrastructure: adapters for providers, storage, tools, tracing, and evaluation execution.
-- Interface/API: FastAPI routes and request/response models.
+- Interface/API: NestJS controllers, request/response DTOs, and HTTP wiring.
 
-No domain or application code should import SDKs for model providers, vector stores, databases, or observability vendors.
+No domain or application code should import SDKs for model providers, vector stores, databases, observability vendors, or NestJS framework modules.
 
 ## Planned Ports
 
-The application layer is expected to define ports for:
+The application layer is expected to define provider-neutral TypeScript interfaces for:
 
 - `LLM`: model interaction behind a provider-neutral interface.
 - `Retriever`: document or knowledge retrieval behind a provider-neutral interface.
@@ -43,7 +43,7 @@ The application layer is expected to define ports for:
 - `TraceLogger`: structured run and step logging.
 - `EvaluationRunner`: scenario execution and pass/fail evaluation.
 
-Exact method signatures will be designed when the related milestone starts.
+Exact TypeScript types and method signatures will be designed when the related milestone starts.
 
 ## Future Web Direction
 
@@ -56,17 +56,19 @@ Planned screens include:
 - Evaluation dashboard.
 - Demo agent interface.
 
-The web app will call the Python API instead of owning backend behavior.
+The web app will call the Node.js API instead of owning backend behavior.
 
 ## Not Implemented Yet
 
 Milestone 0 intentionally avoids:
 
+- Domain models.
 - RAG pipelines.
 - Agent orchestration.
 - Tool execution.
 - LLM provider integration.
-- FastAPI routes.
+- NestJS application scaffolding.
+- API routes.
 - Frontend app generation.
 - Docker.
 - Database schema or persistence.

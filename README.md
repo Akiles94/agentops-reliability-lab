@@ -8,12 +8,14 @@ The future support/refund/payment assistant will be a demo system under test. It
 
 ## Milestone 0 Scope
 
-Milestone 0 creates only the repository foundation:
+Milestone 0 creates only the Node.js and TypeScript repository foundation:
 
-- Monorepo layout for a future Python API and React dashboard.
+- pnpm monorepo layout.
+- TypeScript base configuration.
+- Future API service location.
+- Future React dashboard location.
 - Business and technical documentation.
-- Minimal Python package configuration.
-- One foundation test that proves the API package imports.
+- One foundation test that proves the API package exports expected metadata.
 
 Milestone 0 intentionally does not include:
 
@@ -21,7 +23,8 @@ Milestone 0 intentionally does not include:
 - Agent workflows.
 - LLM provider calls.
 - LangGraph or orchestration logic.
-- FastAPI routes.
+- NestJS application code.
+- API routes.
 - Frontend application code.
 - Docker.
 - Database setup.
@@ -35,14 +38,17 @@ agentops-reliability-lab/
     technical-architecture.md
   apps/
     api/
-      pyproject.toml
+      package.json
+      tsconfig.json
       src/
-        llm_reliability_lab_api/
-          __init__.py
+        index.ts
       tests/
-        test_project_foundation.py
+        foundation.test.ts
     web/
       README.md
+  package.json
+  pnpm-workspace.yaml
+  tsconfig.base.json
   LICENSE
 ```
 
@@ -52,9 +58,11 @@ The future API will use Clean Architecture principles:
 
 - Domain and application layers stay independent from providers and frameworks.
 - Infrastructure adapters handle external details such as model providers, vector stores, persistence, and observability exporters.
-- The API layer exposes use cases through HTTP once FastAPI is added.
+- The API layer exposes use cases through HTTP once the Node.js API framework is added.
 
-Planned ports include:
+NestJS is the likely future API framework, but it is intentionally not installed or scaffolded in Milestone 0.
+
+Planned future ports include:
 
 - `LLM`
 - `Retriever`
@@ -64,19 +72,17 @@ Planned ports include:
 
 Provider-specific code must stay outside the domain and application layers.
 
-## Python Project Config
-
-`apps/api/pyproject.toml` is Python's modern project configuration file. It is similar in purpose to a small `package.json`: it names the project, defines the Python version, and stores test/tool configuration.
-
-For Milestone 0, it does not add FastAPI, OpenAI, LangGraph, database clients, or other runtime dependencies.
-
 ## Basic Commands
 
-After Python 3.11 or newer is available, run from `apps/api`:
+Install dependencies:
 
 ```powershell
-python -m pip install -e ".[dev]"
-python -m pytest
+pnpm install
 ```
 
-The first command installs the API package in editable mode with development dependencies. The second command runs the foundation test for the Python package.
+Run the foundation checks:
+
+```powershell
+pnpm test
+pnpm typecheck
+```
