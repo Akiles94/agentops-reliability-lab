@@ -1,31 +1,21 @@
 # AgentOps Reliability Lab
 
-AgentOps Reliability Lab is a production-style AI Agent Reliability Lab for testing, tracing, evaluating, and securing RAG + tool-calling agent workflows, built in Node.js and TypeScript.
+I'm building a reliability layer for AI agent and RAG workflows in Node.js/TypeScript — not another chatbot demo, but the tooling that sits around one: a scenario runner, trace viewer, evaluation harness, tool-call safety checks, prompt-injection tests, cost/latency tracking, human-approval and citation validation.
 
-The main product is not a chatbot. It is the reliability layer around an AI system: a scenario runner, trace viewer, evaluation harness, tool-call safety checks, prompt-injection tests, cost/latency tracking, human-approval validation, and citation validation. A CustomerOps (support/refunds/payments) agent will later serve as the demo system under test.
+A small CustomerOps agent (support/refunds/payments) will eventually be the thing under test, but that's just a realistic target for the reliability tooling — it's not the point of the project.
 
-## Current Scope
+## Where things stand
 
-This is the foundation commit. It sets up the Node.js/TypeScript monorepo only:
+This is the first commit — just the monorepo skeleton:
 
-- pnpm workspace layout.
-- Shared TypeScript base configuration.
-- `apps/api` package with a single foundation test proving the build/test pipeline works.
-- `apps/web` reserved for a future dashboard.
-- Business and technical documentation.
+- pnpm workspace + shared TypeScript config.
+- `apps/api` with one test proving the build/test pipeline actually runs.
+- `apps/web` reserved for a future dashboard, empty for now.
+- Docs in `docs/`.
 
-It intentionally does not yet include:
+Not here yet, on purpose: RAG, agent workflows, LLM calls, tool execution, API routes, a frontend, Docker, a database. Foundation first.
 
-- RAG implementation.
-- Agent workflows.
-- LLM provider calls.
-- Tool execution.
-- API routes.
-- Frontend application code.
-- Docker.
-- Database setup.
-
-## Project Layout
+## Layout
 
 ```text
 agentops-reliability-lab/
@@ -48,17 +38,10 @@ agentops-reliability-lab/
   LICENSE
 ```
 
-## Basic Commands
-
-Install dependencies:
+## Running it
 
 ```powershell
 pnpm install
-```
-
-Run the foundation checks:
-
-```powershell
 pnpm test
 pnpm typecheck
 ```

@@ -1,68 +1,39 @@
 # Technical Architecture
 
-AgentOps Reliability Lab is a Node.js/TypeScript monorepo. This foundation commit sets up the workspace only.
+Node.js/TypeScript monorepo. Right now this is just the workspace skeleton — nothing else exists yet.
 
-## Monorepo Layout
+## Layout
 
 ```text
 apps/
   api/  # Node.js API service
-  web/  # Future dashboard (Next.js or Vite + React)
-docs/   # Business and technical documentation
+  web/  # future dashboard (Next.js or Vite + React)
+docs/   # this stuff
 ```
 
-## Architecture Principles
+## How I want to build this
 
-- Use small bounded changes.
-- Keep domain and application logic independent from frameworks and providers.
-- Use ports and adapters for external systems.
-- Keep provider-specific code in infrastructure adapters.
-- Include tests with implementation tasks when applicable.
-- Avoid empty architecture folders until real code exists for them.
+Roughly Clean Architecture: domain and application code shouldn't know anything about frameworks or providers. Anything external — a model provider, a vector store, Postgres, whatever observability tool ends up in use — sits behind an adapter. Controllers just wire HTTP to use cases and nothing more.
 
-## Future API Direction
+Concretely, once there's real code behind these:
 
-The future API will use Clean Architecture boundaries:
+- **Domain** — plain models and rules, no imports from anywhere external.
+- **Application** — use cases plus the port interfaces they depend on.
+- **Infrastructure** — adapters implementing those ports against real providers.
+- **API** — controllers, DTOs, HTTP wiring, nothing smarter than that.
 
-- Domain: core concepts and rules.
-- Application: use cases and port interfaces.
-- Infrastructure: adapters for providers, storage, tools, tracing, and evaluation execution.
-- Interface/API: controllers, request/response DTOs, and HTTP wiring.
+The ports I expect to need:
 
-No domain or application code should import SDKs for model providers, vector stores, databases, observability vendors, or web frameworks.
+- `LLMClient` — model calls behind a provider-neutral interface.
+- `Retriever` — document/knowledge retrieval.
+- `ToolExecutor` — tool-call validation and execution.
+- `TraceLogger` — structured run/step logging.
+- `EvaluationRunner` — scenario execution and pass/fail.
 
-## Planned Ports
+I'm not locking in the exact TypeScript signatures yet — that happens when the milestone that actually needs them starts, not before.
 
-The application layer is expected to define provider-neutral TypeScript interfaces for:
+`apps/web` will eventually hold the dashboard: scenario runner, trace viewer, eval results, a view into the demo agent. It just calls the API; no logic of its own lives there.
 
-- `LLMClient`: model interaction behind a provider-neutral interface.
-- `Retriever`: document or knowledge retrieval behind a provider-neutral interface.
-- `ToolExecutor`: safe tool execution and tool-call validation.
-- `TraceLogger`: structured run and step logging.
-- `EvaluationRunner`: scenario execution and pass/fail evaluation.
+## Not built yet
 
-Exact TypeScript types and method signatures will be designed when the related milestone starts.
-
-## Future Web Direction
-
-The frontend will live in `apps/web`. Planned screens include:
-
-- Scenario runner.
-- Trace viewer.
-- Evaluation dashboard.
-- Demo agent interface.
-
-The web app will call the Node.js API instead of owning backend behavior.
-
-## Not Implemented Yet
-
-The project intentionally avoids for now:
-
-- RAG pipelines.
-- Agent orchestration.
-- Tool execution.
-- LLM provider integration.
-- API routes.
-- Frontend app generation.
-- Docker.
-- Database schema or persistence.
+RAG, agent orchestration, tool execution, real LLM calls, API routes, the frontend, Docker, a database. Skipped on purpose — foundation first, everything else on top of it.

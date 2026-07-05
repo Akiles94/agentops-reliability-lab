@@ -1,54 +1,23 @@
 # Business Overview
 
-AgentOps Reliability Lab is a portfolio project that demonstrates how to evaluate and monitor AI agent and RAG workflows before they reach production.
+Most agent and RAG demos are a chat box wrapped around some documents. That's fine for a weekend project, but it's not enough for anything meant to run in production — you need to actually know the thing behaves correctly across realistic scenarios, doesn't call tools it shouldn't, resists prompt injection, cites the sources it claims to, and stays inside whatever cost and latency budget it's given.
 
-The project is positioned as a reliability platform, not as another document chatbot. Its purpose is to show production AI engineering skills around correctness, safety, observability, cost, and latency.
+That's what this project is really about. The "product" is the reliability layer: something that runs golden scenarios against an agent and comes back with pass/fail and a reason why. A scenario spells out what the agent should do, which tools it's allowed to touch, whether a human has to sign off before anything risky happens, whether it needs to cite a source, and what the cost/latency ceiling is.
 
-## Problem
-
-Many AI demos stop at a chat interface over documents. Real production teams need more than a response box. They need confidence that an AI workflow behaves correctly across realistic scenarios, follows tool safety rules, resists prompt injection, cites the right sources, and stays within latency and cost limits.
-
-## Product Concept
-
-The platform will run golden scenarios against a demo CustomerOps agent and produce pass/fail results. A scenario can describe what the agent should do, which tools are required or forbidden, whether human approval is required, whether citations are required, and what latency or cost limits apply.
-
-Example future scenario:
+An example of the kind of scenario I have in mind:
 
 - A customer asks whether order `ord_123` can be refunded.
-- The agent should inspect order details.
-- The agent should retrieve the refund policy.
-- The agent should not issue a refund without human approval.
-- The final answer should cite the relevant policy.
-- The run should stay under cost and latency thresholds.
+- The agent looks up the order, then the refund policy.
+- It does **not** issue the refund itself — that needs human approval.
+- The final answer cites the policy it used.
+- The whole run stays under the cost/latency limit.
 
-## Future Demo System Under Test
+## The demo agent
 
-The support/refund/payment assistant is the demo target, not the main product. It will provide realistic workflows for testing:
+Refunds, payment lookups, policy questions — none of that is the actual point. The demo CustomerOps agent just gives the reliability layer something realistic to run scenarios against.
 
-- Refund decisions.
-- Payment investigation.
-- Policy lookup.
-- Tool-call validation.
-- Human approval rules.
+## Right now
 
-## Portfolio Signal
+All that exists today is the bare Node.js/TypeScript monorepo: workspace config, one `apps/api` package, and one test proving the build/test loop works. No scenario execution yet, no model calls, no retrieval, no tools, no API, no dashboard.
 
-This project is designed to communicate:
-
-- Backend and fullstack system design.
-- Clean Architecture.
-- AI evaluation and observability.
-- Tool-calling safety.
-- RAG and agent workflow testing.
-- Cost and latency awareness.
-- Product thinking around reliability dashboards.
-
-## Current Implementation
-
-The current implementation is only the Node.js/TypeScript monorepo foundation: a workspace layout, shared TypeScript configuration, and one `apps/api` package with a foundation test proving the build/test pipeline works.
-
-It does not yet execute scenarios, call models, retrieve documents, run tools, expose an API, or render a dashboard.
-
-## Documentation Policy
-
-Business and technical documentation should stay updated as the project changes, so someone can return after a break, or join the project later, and understand both what the product does and why it exists.
+I'll try to keep this doc roughly in sync as the project grows, mostly so I don't lose the thread if I step away from it for a while.
