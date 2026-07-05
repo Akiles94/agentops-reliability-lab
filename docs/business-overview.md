@@ -18,6 +18,6 @@ Refunds, payment lookups, policy questions — none of that is the actual point.
 
 ## Right now
 
-All that exists today is the bare Node.js/TypeScript monorepo: workspace config, one `apps/api` package, and one test proving the build/test loop works. No scenario execution yet, no model calls, no retrieval, no tools, no API, no dashboard.
+The `evaluation` domain exists: plain TypeScript types for a scenario, an individual check, and the pass/fail result computed from those checks. `docs/scenario-spec.md` is the actual spec — the types and tests are derived from it, not the reverse. There's no way yet to load a scenario from a file, run one against a real agent, call a model, retrieve documents, or expose any of this over an API or dashboard.
 
 I'll try to keep this doc roughly in sync as the project grows, mostly so I don't lose the thread if I step away from it for a while.

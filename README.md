@@ -6,14 +6,12 @@ A small CustomerOps agent (support/refunds/payments) will eventually be the thin
 
 ## Where things stand
 
-This is the first commit — just the monorepo skeleton:
-
 - pnpm workspace + shared TypeScript config.
-- `apps/api` with one test proving the build/test pipeline actually runs.
+- `apps/api` with the `evaluation` domain: plain types for a scenario, a check result, and the pass/fail evaluation computed from those checks. Spec lives in `docs/scenario-spec.md`, written before the code.
 - `apps/web` reserved for a future dashboard, empty for now.
 - Docs in `docs/`.
 
-Not here yet, on purpose: RAG, agent workflows, LLM calls, tool execution, API routes, a frontend, Docker, a database. Foundation first.
+Not here yet, on purpose: loading scenarios from files, RAG, agent workflows, LLM calls, tool execution, API routes, a frontend, Docker, a database. Foundation first.
 
 ## Layout
 
@@ -22,14 +20,26 @@ agentops-reliability-lab/
   docs/
     business-overview.md
     technical-architecture.md
+    scenario-spec.md
   apps/
     api/
       package.json
       tsconfig.json
       src/
         index.ts
+        evaluation/
+          domain/
+            scenarios/
+              scenario.ts
+            results/
+              check-result.ts
+              evaluation-result.ts
       tests/
         foundation.test.ts
+        evaluation/
+          domain/
+            results/
+              evaluation-result.test.ts
     web/
       README.md
   package.json
