@@ -1,0 +1,47 @@
+# AgentOps Reliability Lab
+
+I'm building a reliability layer for AI agent and RAG workflows in Node.js/TypeScript — not another chatbot demo, but the tooling that sits around one: a scenario runner, trace viewer, evaluation harness, tool-call safety checks, prompt-injection tests, cost/latency tracking, human-approval and citation validation.
+
+A small CustomerOps agent (support/refunds/payments) will eventually be the thing under test, but that's just a realistic target for the reliability tooling — it's not the point of the project.
+
+## Where things stand
+
+This is the first commit — just the monorepo skeleton:
+
+- pnpm workspace + shared TypeScript config.
+- `apps/api` with one test proving the build/test pipeline actually runs.
+- `apps/web` reserved for a future dashboard, empty for now.
+- Docs in `docs/`.
+
+Not here yet, on purpose: RAG, agent workflows, LLM calls, tool execution, API routes, a frontend, Docker, a database. Foundation first.
+
+## Layout
+
+```text
+agentops-reliability-lab/
+  docs/
+    business-overview.md
+    technical-architecture.md
+  apps/
+    api/
+      package.json
+      tsconfig.json
+      src/
+        index.ts
+      tests/
+        foundation.test.ts
+    web/
+      README.md
+  package.json
+  pnpm-workspace.yaml
+  tsconfig.base.json
+  LICENSE
+```
+
+## Running it
+
+```powershell
+pnpm install
+pnpm test
+pnpm typecheck
+```
