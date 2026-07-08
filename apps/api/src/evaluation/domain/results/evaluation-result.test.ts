@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import type { CheckResult } from "../../../../src/evaluation/domain/results/check-result.js";
-import { evaluateScenario } from "../../../../src/evaluation/domain/results/evaluation-result.js";
+import type { CheckResult } from "./check-result.js";
+import { evaluateScenario } from "./evaluation-result.js";
 
 describe("evaluateScenario", () => {
   it("passes the ord_123 refund-inquiry scenario from the spec when every check passes", () => {
