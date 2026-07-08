@@ -8,10 +8,11 @@ A small CustomerOps agent (support/refunds/payments) will eventually be the thin
 
 - pnpm workspace + shared TypeScript config.
 - `apps/api` with the `evaluation` domain: plain types for a scenario, a check result, and the pass/fail evaluation computed from those checks. Spec lives in `specs/scenario-spec.md`, written before the code.
+- `evaluation/application/`: a Zod boundary that validates a raw scenario definition into the domain `Scenario`, or returns readable errors — never throws. Spec in `specs/scenario-definition-spec.md`.
 - `apps/web` reserved for a future dashboard, empty for now.
 - Docs in `docs/`, specs in `specs/` — kept separate on purpose: docs are narrative, specs are the artifact code gets built from.
 
-Not here yet, on purpose: loading scenarios from files, RAG, agent workflows, LLM calls, tool execution, API routes, a frontend, Docker, a database. Foundation first.
+Not here yet, on purpose: reading scenario definitions from actual files, RAG, agent workflows, LLM calls, tool execution, API routes, a frontend, Docker, a database. Foundation first.
 
 ## Layout
 
@@ -22,6 +23,7 @@ agentops-reliability-lab/
     technical-architecture.md
   specs/
     scenario-spec.md
+    scenario-definition-spec.md
   apps/
     api/
       package.json
@@ -38,6 +40,11 @@ agentops-reliability-lab/
               check-result.ts
               evaluation-result.ts
               evaluation-result.test.ts
+          application/
+            scenario-definitions/
+              scenario-definition.schema.ts
+              scenario-definition.parser.ts
+              scenario-definition.parser.test.ts
     web/
       README.md
   package.json
