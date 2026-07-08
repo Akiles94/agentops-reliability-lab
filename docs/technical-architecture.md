@@ -9,9 +9,10 @@ apps/
   api/
     src/
       evaluation/       # first bounded context: scenarios + evaluation results
-        domain/
+        domain/         # each .ts file sits next to its .test.ts
   web/  # future dashboard (Next.js or Vite + React)
-docs/   # this stuff, plus scenario-spec.md
+docs/     # narrative/architecture docs
+specs/    # the specs code is built from, e.g. scenario-spec.md
 ```
 
 ## How I want to build this
@@ -39,7 +40,7 @@ I'm not locking in the exact TypeScript signatures yet — that happens when the
 
 ## How a new concept gets built
 
-Spec first, then code: write what the concept means in `docs/` (e.g. `docs/scenario-spec.md`), then implement the TypeScript types/logic to match it, then write tests that encode the spec's own examples. `evaluation` was built this way — the domain types didn't exist until the spec did.
+Spec first, then code: write what the concept means in `specs/` (e.g. `specs/scenario-spec.md`), then implement the TypeScript types/logic to match it, then write tests that encode the spec's own examples, colocated next to the file they test. `evaluation` was built this way — the domain types didn't exist until the spec did.
 
 Bounded contexts live as top-level folders under `apps/api/src/` (`evaluation` now, others — `agent`, `tools`, `tracing`, `rag` — named only once a milestone actually builds them). Inside a context, `domain/`, `application/`, and `infrastructure/` subfolders show up only when there's real code for them; `evaluation/application/` doesn't exist yet because nothing needs it until scenario definitions get parsed from external files.
 

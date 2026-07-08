@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { apiFoundation } from "../src/index.js";
+import { apiFoundation } from "./index.js";
 
 describe("apiFoundation", () => {
   it("exposes the expected package metadata", () => {
